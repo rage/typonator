@@ -2,37 +2,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import type { State, Dispatch } from 'state/reducer';
-import { decrement } from 'state/actions';
+import { textAction } from 'state/actions';
+import prefixer from 'utils/class-name-prefixer';
+import Input from './input';
 
 class App extends Component {
 
-  componentDidMount() {
-    setInterval(this.tick.bind(this), 1000);
-  }
-
-  tick() {
-    this.props.onDecrement();
-  }
-
   render() {
     return (
-      <div>Next refresh in: {this.props.remainingTime}.</div>
+      <div className={prefixer('container')}>
+        <div>
+          <div className={prefixer('model-text')}>{this.props.modelText}</div>
+        </div>
+        <div>
+          <label className={prefixer('instructions')} HTMLfor="inputfield">Kirjoita:</label>
+          <Input onChange={this.props.onChange} />
+        </div>
+      </div>
     );
   }
 }
 
 function mapStateToProps(state: State) {
   return {
-    remainingTime: state.timerReducer.time,
+    modelText: state.writerReducer.model,
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    onDecrement() {
-      dispatch(decrement());
+    onChange(text: string) {
+      dispatch(textAction(text));
     },
   };
 }
+
+// contextTypes?
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

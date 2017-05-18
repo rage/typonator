@@ -3,6 +3,7 @@ import type { ThunkArgument } from 'state/store';
 import type { Dispatch, GetState } from 'state/reducer';
 
 export const TIMER_DECREMENT = 'TIMER_DECREMENT';
+export const TEXT_CHANGED = 'TEXT_CHANGED';
 
 function decrementAction() {
   return {
@@ -10,18 +11,21 @@ function decrementAction() {
   };
 }
 
+export function textAction(text: string) {
+  return {
+    text,
+    type: TEXT_CHANGED,
+  };
+}
+
+export type TextAction = {
+  text: string,
+  type: string
+}
+
 export function decrement() {
   return async function decrementor(dispatch: Dispatch, getState: GetState, { api }: ThunkArgument) {
-    const { timerReducer: { time } } = getState();
     dispatch(decrementAction());
     await api.fetchNewShit();
-
-    if (time === 0) {
-      try {
-        await api.fetchNewShit();
-      } catch (e) {
-        console.warn('Could not fetch next exercise from the server.', e);
-      }
-    }
   };
 }
