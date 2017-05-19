@@ -15,8 +15,8 @@ class App extends Component {
           <div className={prefixer('model-text')}>{this.props.modelText}</div>
         </div>
         <div>
-          <label className={prefixer('instructions')} HTMLfor="inputfield">Kirjoita:</label>
-          <Input onChange={this.props.onChange} />
+          <label className={prefixer('instructions')} htmlFor="inputfield">Kirjoita:</label>
+          <Input onChange={this.props.onChange} correct={this.props.markerRanges} text={this.props.answer} />
         </div>
       </div>
     );
@@ -26,6 +26,8 @@ class App extends Component {
 function mapStateToProps(state: State) {
   return {
     modelText: state.writerReducer.model,
+    markerRanges: state.writerReducer.markers,
+    answer: state.writerReducer.text,
   };
 }
 
@@ -36,7 +38,5 @@ function mapDispatchToProps(dispatch: Dispatch) {
     },
   };
 }
-
-// contextTypes?
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
