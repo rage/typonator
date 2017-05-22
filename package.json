@@ -9,7 +9,8 @@
     "webpack": "env NODE_ENV=development node ./node_modules/.bin/webpack",
     "build": "rm -rf public && NODE_ENV=production node ./node_modules/.bin/webpack && yarn run manifest",
     "lint": "yarn run eslint -- --ext .js --ext .jsx",
-    "test": "yarn run ava"
+    "test": "yarn run nyc ava",
+    "coverage": "BABEL_ENV=production babel --out-dir=dist index.jsx"
   },
   "dependencies": {
     "axios": "^0.16.1",
@@ -47,6 +48,7 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "flow-bin": "^0.45.0",
     "node-sass": "^4.5.1",
+    "nyc": "^10.3.2",
     "postcss-class-prefix": "^0.3.0",
     "postcss-loader": "^2.0.3",
     "sass-loader": "^6.0.3",
@@ -62,5 +64,15 @@
       "./resolve-modules.js"
     ],
     "babel": "inherit"
-  }
+  },
+  "babel": {
+		"presets": ["es2015"],
+		"plugins": ["transform-runtime"],
+		"ignore": "*-test.js",
+		"env": {
+			"development": {
+				"sourceMaps": "inline"
+			}
+		}
+	}
 }

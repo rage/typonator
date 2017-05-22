@@ -3,8 +3,6 @@
 import Api from 'utils/api';
 
 import { combineReducers } from 'redux';
-import timerReducer from 'reducers/timer-reducer';
-import type { State as TimerState } from 'reducers/timer-reducer';
 
 import writerReducer from 'reducers/writer-reducer';
 import type { State as TextState } from 'reducers/writer-reducer';
@@ -15,7 +13,6 @@ export type ThunkAction = (dispatch: Dispatch, getState: GetState, arguments: Th
 export type Action = { type: string, payload?: any } | ThunkAction | Promise<any>;
 
 export type State = {
-  timerReducer: TimerState,
   writerReducer: TextState,
 }
 export type Dispatch = (action: Action) => any;
@@ -27,6 +24,5 @@ export type ThunkArguments = {
 export type GetState = () => State;
 
 export default combineReducers({
-  timerReducer,
   writerReducer,
 });
