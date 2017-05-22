@@ -2,7 +2,6 @@
 import { createReducer } from 'redux-create-reducer';
 import { TEXT_CHANGED } from 'state/actions';
 import type { TextAction } from 'state/actions';
-import prefixer from 'utils/class-name-prefixer';
 
 export type State = {
   text: string,
@@ -40,8 +39,6 @@ function findBugs(model: string, answer: string) {
           startCol: j,
           endRow: i,
           endCol: j + 1,
-          className: prefixer('wrong'),
-          type: 'line',
         });
       }
     }
@@ -54,8 +51,6 @@ function findBugs(model: string, answer: string) {
         startCol: 0,
         endRow: i,
         endCol: row.length,
-        className: prefixer('wrong'),
-        type: 'line',
       });
       i++;
     });

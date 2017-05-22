@@ -1,7 +1,5 @@
 // @flow
 
-import Api from 'utils/api';
-
 import { combineReducers } from 'redux';
 
 import writerReducer from 'reducers/writer-reducer';
@@ -18,7 +16,6 @@ export type State = {
 export type Dispatch = (action: Action) => any;
 
 export type ThunkArguments = {
-  api: Api,
 };
 
 export type GetState = () => State;

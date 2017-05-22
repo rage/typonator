@@ -17,13 +17,21 @@ class Input extends Component {
     this.addMarkers();
   }
 
+  props: {
+    correct: boolean,
+    text: string,
+    onChange: (content: string) => any,
+    markerRanges: Array<Object>
+  };
+
   addMarkers() {
     const codeDocument = this.textInput.getCodeMirror().getDoc();
     this.markers = this.props.markerRanges.map(range => (
       codeDocument.markText(
         { line: range.startRow, ch: range.startCol },
         { line: range.endRow, ch: range.endCol },
-        { className: prefixer('wrong'), inclusiveLeft: true, inclusiveRight: false })
+        { className: prefixer('wrong'), inclusiveLeft: true, inclusiveRight: false },
+      )
     ));
   }
 
