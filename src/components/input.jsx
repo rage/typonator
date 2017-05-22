@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import prefixer from 'utils/class-name-prefixer';
-import CodeMirror from 'react-codemirror';
+import CodeMirror, { TextMarker } from 'react-codemirror';
 
 class Input extends Component {
 
@@ -25,14 +25,12 @@ class Input extends Component {
         { line: range.endRow, ch: range.endCol },
         { className: prefixer('wrong'), inclusiveLeft: true, inclusiveRight: false })
     ));
-    console.log(this.markers.length);
-    console.log(this.props.correct.length);
-    debugger;
   }
+
   textInput: CodeMirror;
+  markers: TextMarker;
 
   render() {
-    console.log(this.props.text);
     const editor = (
       <CodeMirror
         className={prefixer('answer')}
