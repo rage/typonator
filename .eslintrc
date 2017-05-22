@@ -15,7 +15,8 @@
       "import/extensions": 0,
       "react/prefer-stateless-function": 0,
       "react/prop-types": 0,
-      "class-methods-use-this": 0
+      "class-methods-use-this": 0,
+      "no-plusplus": 0
   },
   "ignore": ["node_modules"],
   "ext": [".js", ".jsx"]

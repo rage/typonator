@@ -20,42 +20,42 @@ const initialState = {
   model: MODEL_TEXT,
 };
 
-function findBugs(model, answer) {
+function findBugs(model: string, answer: string) {
   const wrongRanges = [];
-  const minLen = model.length < answer.length ? model.length : answer.length;
-  let rowCount = 0;
-  let colCount = 0;
+  const modelByRow = model.split('\n');
+  const answerByRow = answer.split('\n');
   let i = 0;
-  for (; i < minLen; i += 1) {
-    if (answer.charAt(i) === '\r' || answer.charAt(i) === '\n') {
-      rowCount += 1;
-      colCount = -1;
+  for (; i < answerByRow.length; i++) {
+    const row = answerByRow[i];
+    const modelRow = modelByRow[i];
+    if (modelRow === undefined) {
+      break;
     }
-    if (model.charAt(i) !== answer.charAt(i)) {
-      wrongRanges.push({
-        startRow: rowCount,
-        startCol: colCount,
-        endRow: rowCount,
-        endCol: colCount + 1,
-        className: prefixer('wrong'),
-        type: 'line',
-      });
+    for (let j = 0; j < row.length; j += 1) {
+      if (row.charAt(j) !== modelRow.charAt(j)) {
+        wrongRanges.push({
+          startRow: i,
+          startCol: j,
+          endRow: i,
+          endCol: j + 1,
+          className: prefixer('wrong'),
+          type: 'line',
+        });
+      }
     }
-    colCount += 1;
   }
   if (answer.length > model.length) {
-    const answerRows = answer.substring(i).split('\n');
+    const answerRows = answerByRow.slice(i);
     answerRows.forEach((row) => {
       wrongRanges.push({
-        startRow: rowCount,
-        startCol: colCount,
-        endRow: rowCount,
-        endCol: colCount + row.length,
+        startRow: i,
+        startCol: 0,
+        endRow: i,
+        endCol: row.length,
         className: prefixer('wrong'),
         type: 'line',
       });
-      rowCount += 1;
-      colCount = 0;
+      i++;
     });
   }
   return wrongRanges;
