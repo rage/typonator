@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "author": "Henrik Nygren <nygrenh@gmail.com>",
-  "license": "MIT/Apache 2",
+  "license": "MIT OR Apache-2.0",
   "scripts": {
     "start": "env NODE_ENV=development yarn run webpack-dev-server --  --progress --colors",
     "webpack": "env NODE_ENV=development node ./node_modules/.bin/webpack",
