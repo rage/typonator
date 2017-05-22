@@ -44,28 +44,19 @@ function findBugs(model, answer) {
     colCount += 1;
   }
   if (answer.length > model.length) {
-    const answerRows = answer.split['\n'];
-    if (answerRows === undefined) {
+    const answerRows = answer.substring(i).split('\n');
+    answerRows.forEach((row) => {
       wrongRanges.push({
         startRow: rowCount,
         startCol: colCount,
         endRow: rowCount,
-        endCol: answer.length,
+        endCol: colCount + row.length,
         className: prefixer('wrong'),
         type: 'line',
       });
-    } else {
-      answerRows.array.forEach((row) => {
-        wrongRanges.push({
-          startRow: rowCount,
-          startCol: 0,
-          endRow: rowCount,
-          endCol: row.length,
-          className: prefixer('wrong'),
-          type: 'line',
-        });
-      });
-    }
+      rowCount += 1;
+      colCount = 0;
+    });
   }
   return wrongRanges;
 }
