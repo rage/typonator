@@ -15,8 +15,16 @@ class App extends Component {
           <div className={prefixer('model-text')}>{this.props.modelText}</div>
         </div>
         <div>
-          <label className={prefixer('instructions')} htmlFor="inputfield">Kirjoita:</label>
-          <Input onChange={this.props.onChange} correct={this.props.markerRanges} text={this.props.answer} />
+          <label
+            className={prefixer('instructions')} htmlFor="inputfield"
+          >Kirjoita:
+          </label>
+          <Input
+            onChange={this.props.onChange}
+            markerRanges={this.props.markerRanges}
+            text={this.props.answer}
+            correct={this.props.correct}
+          />
         </div>
       </div>
     );
@@ -28,6 +36,7 @@ function mapStateToProps(state: State) {
     modelText: state.writerReducer.model,
     markerRanges: state.writerReducer.markers,
     answer: state.writerReducer.text,
+    correct: state.writerReducer.correct,
   };
 }
 

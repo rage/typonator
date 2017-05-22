@@ -26,3 +26,12 @@
 .wrong {
   background-color: #fcbcbc;
 }
+
+.checkmark:after {
+  content: "\2713";
+  float: right;
+  font-size: 4rem;
+  color: green;
+  position: relative;
+  top: -4rem;
+}

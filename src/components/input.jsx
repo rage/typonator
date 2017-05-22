@@ -19,7 +19,7 @@ class Input extends Component {
 
   addMarkers() {
     const codeDocument = this.textInput.getCodeMirror().getDoc();
-    this.markers = this.props.correct.map(range => (
+    this.markers = this.props.markerRanges.map(range => (
       codeDocument.markText(
         { line: range.startRow, ch: range.startCol },
         { line: range.endRow, ch: range.endCol },
@@ -31,9 +31,13 @@ class Input extends Component {
   markers: TextMarker;
 
   render() {
+    let clsName = prefixer('answer');
+    if (this.props.correct) {
+      clsName = `${clsName} + " " + ${prefixer('checkmark')}`;
+    }
     const editor = (
       <CodeMirror
-        className={prefixer('answer')}
+        className={clsName}
         value={this.props.text}
         onChange={this.props.onChange}
         ref={(input) => { this.textInput = input; }}
