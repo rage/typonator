@@ -6,6 +6,7 @@ import CodeMirror, { TextMarker } from 'react-codemirror';
 class Input extends Component {
 
   componentDidMount() {
+    this.preventPaste();
     this.addMarkers();
   }
 
@@ -14,15 +15,12 @@ class Input extends Component {
   }
 
   componentDidUpdate() {
+    this.preventPaste();
     this.addMarkers();
   }
 
-  props: {
-    correct: boolean,
-    text: string,
-    onChange: (content: string) => any,
-    markerRanges: Array<Object>
-  };
+  textInput: CodeMirror;
+  markers: TextMarker;
 
   addMarkers() {
     const codeDocument = this.textInput.getCodeMirror().getDoc();
@@ -35,8 +33,21 @@ class Input extends Component {
     ));
   }
 
-  textInput: CodeMirror;
-  markers: TextMarker;
+  preventPaste() {
+    this.textInput.getCodeMirror().on('paste', (cm, event: Event) => {
+      setTimeout(function () {
+        cm.className = `${cm.className} ${prefixer('paste')}`;
+      }, 200);
+      event.preventDefault();
+    });
+  }
+
+  props: {
+    correct: boolean,
+    text: string,
+    onChange: (content: string) => any,
+    markerRanges: Array<Object>
+  };
 
   render() {
     let clsName = prefixer('answer');
@@ -44,13 +55,15 @@ class Input extends Component {
       clsName = `${clsName} + " " + ${prefixer('checkmark')}`;
     }
     const editor = (
-      <CodeMirror
-        className={clsName}
-        value={this.props.text}
-        onChange={this.props.onChange}
-        ref={(input) => { this.textInput = input; }}
-        height={'5rem'}
-      />
+      <div ref={(input) => { this.wrapper = input; }}>
+        <CodeMirror
+          className={clsName}
+          value={this.props.text}
+          onChange={this.props.onChange}
+          ref={(input) => { this.textInput = input; }}
+          height={'5rem'}
+        />
+      </div>
     );
     return editor;
   }

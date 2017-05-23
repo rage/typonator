@@ -11,7 +11,7 @@ export type State = {
 }
 
 const MODEL_TEXT = `public class Hei {
-
+  System.out.println("Hello World")
 }`;
 
 const initialState = {

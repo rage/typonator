@@ -17,9 +17,10 @@ class App extends Component {
         <div>
           <label
             className={prefixer('instructions')} htmlFor="inputfield"
-          >Kirjoita:
+          >Kirjoita sama koodi alla olevaan kenttään:
           </label>
           <Input
+            id="answer"
             onChange={this.props.onChange}
             markerRanges={this.props.markerRanges}
             text={this.props.answer}
