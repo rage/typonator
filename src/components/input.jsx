@@ -36,7 +36,7 @@ class Input extends Component {
 
   preventPaste() {
     this.textInput.getCodeMirror().on('paste', (_, event: Event) => {
-      const originalName = this.wrapper.className;
+      const originalName = '';
       this.wrapper.className = `${this.wrapper.className} ${prefixer('paste')}`;
       setTimeout(() => {
         this.wrapper.className = originalName;
