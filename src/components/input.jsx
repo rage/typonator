@@ -21,6 +21,7 @@ class Input extends Component {
 
   textInput: CodeMirror;
   markers: TextMarker;
+  wrapper: HTMLDivElement;
 
   addMarkers() {
     const codeDocument = this.textInput.getCodeMirror().getDoc();
@@ -34,10 +35,12 @@ class Input extends Component {
   }
 
   preventPaste() {
-    this.textInput.getCodeMirror().on('paste', (cm, event: Event) => {
-      setTimeout(function () {
-        cm.className = `${cm.className} ${prefixer('paste')}`;
-      }, 200);
+    this.textInput.getCodeMirror().on('paste', (_, event: Event) => {
+      const originalName = this.wrapper.className;
+      this.wrapper.className = `${this.wrapper.className} ${prefixer('paste')}`;
+      setTimeout(() => {
+        this.wrapper.className = originalName;
+      }, 300);
       event.preventDefault();
     });
   }
