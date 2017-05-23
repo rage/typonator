@@ -65,6 +65,7 @@ class Input extends Component {
           onChange={this.props.onChange}
           ref={(input) => { this.textInput = input; }}
           height={'5rem'}
+          options={{ dragDrop: false }}
         />
       </div>
     );
