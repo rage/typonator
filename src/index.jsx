@@ -8,9 +8,12 @@ import createStore from 'state/store';
 import './styles';
 import App from './components/app';
 
-window.initTyponator = function () {
+window.initTyponator = () => {
   document.querySelectorAll('.typonator-widget').forEach((element) => {
-    const store = createStore();
+    const model = element.getElementsByClassName('typonator-model-source')[0].innerHTML.toString().trim();
+    const template = element.getElementsByClassName('typonator-template-source')[0].innerHTML
+      .toString().trim().replace('// DELETE ME', '');
+    const store = createStore(model, template);
     render(
       <Provider store={store}>
         <App />

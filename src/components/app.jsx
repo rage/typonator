@@ -34,10 +34,10 @@ class App extends Component {
 
 function mapStateToProps(state: State) {
   return {
-    modelText: state.writerReducer.model,
-    markerRanges: state.writerReducer.markers,
-    answer: state.writerReducer.text,
-    correct: state.writerReducer.correct,
+    modelText: state.text.model,
+    markerRanges: state.text.markers,
+    answer: state.text.text,
+    correct: state.text.correct,
   };
 }
 

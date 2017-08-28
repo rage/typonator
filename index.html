@@ -1,10 +1,21 @@
 <html>
   <head>
-    <link rel="stylesheet" href="http://localhost:51433/app.css">
+    <link rel="stylesheet" href="app.css">
   </head>
   <body>
-    <div class="typonator-widget"></div>
-    <script src="http://localhost:51433/app.js" type="text/javascript"></script>
+    <div class="typonator-widget">
+      <div class="typonator-model-source">
+public class Hei {
+    System.out.println("Hello World");
+}
+      </div>
+      <div class="typonator-template-source">
+public class Hei {
+    // DELETE ME
+}
+      </div>
+    </div>
+    <script src="app.js" type="text/javascript"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         window.initTyponator();

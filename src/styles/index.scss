@@ -15,6 +15,7 @@
   white-space: pre;
   width: 100%;
   height: 5rem;
+  font-family: monospace;
 }
 
 .answer {
@@ -59,4 +60,8 @@
   40%, 60% {
     transform: translate3d(8px, 0, 0);
   }
+}
+
+.model-source, .template-source {
+  display: none;
 }

@@ -10,17 +10,6 @@ export type State = {
   correct: boolean
 }
 
-const MODEL_TEXT = `public class Hei {
-  System.out.println("Hello World");
-}`;
-
-const initialState = {
-  text: '',
-  markers: [],
-  model: MODEL_TEXT,
-  correct: false,
-};
-
 function findBugs(model: string, answer: string) {
   const wrongRanges = [];
   const modelByRow = model.split('\n');
@@ -62,17 +51,25 @@ function isCorrect(model: string, answer: string) {
   return model.localeCompare(answer) === 0;
 }
 
-export default createReducer(initialState, {
-  [TEXT_CHANGED](state: State, action: TextAction): State {
-    const wrongRanges = findBugs(state.model, action.text);
-    const correct = isCorrect(state.model, action.text);
-    return {
-      ...state,
-      ...{
-        text: action.text,
-        markers: wrongRanges,
-        correct,
-      },
-    };
-  },
-});
+export default (model: string, template: string) => {
+  const initialState = {
+    text: template,
+    markers: [],
+    model,
+    correct: false,
+  };
+  return createReducer(initialState, {
+    [TEXT_CHANGED](state: State, action: TextAction): State {
+      const wrongRanges = findBugs(state.model, action.text);
+      const correct = isCorrect(state.model, action.text);
+      return {
+        ...state,
+        ...{
+          text: action.text,
+          markers: wrongRanges,
+          correct,
+        },
+      };
+    },
+  });
+};

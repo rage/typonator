@@ -2,8 +2,8 @@
 
 import { combineReducers } from 'redux';
 
-import writerReducer from 'reducers/writer-reducer';
-import type { State as TextState } from 'reducers/writer-reducer';
+import textReducer from 'reducers/text-reducer';
+import type { State as TextState } from 'reducers/text-reducer';
 
 /* eslint-disable no-use-before-define */
 export type ThunkAction = (dispatch: Dispatch, getState: GetState, arguments: ThunkArguments) => any;
@@ -11,7 +11,7 @@ export type ThunkAction = (dispatch: Dispatch, getState: GetState, arguments: Th
 export type Action = { type: string, payload?: any } | ThunkAction | Promise<any>;
 
 export type State = {
-  writerReducer: TextState,
+  text: TextState,
 }
 export type Dispatch = (action: Action) => any;
 
@@ -20,6 +20,8 @@ export type ThunkArguments = {
 
 export type GetState = () => State;
 
-export default combineReducers({
-  writerReducer,
-});
+export default (model: string, template: string) => (
+  combineReducers({
+    text: textReducer(model, template),
+  })
+);
