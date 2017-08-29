@@ -25,6 +25,8 @@ class App extends Component {
             markerRanges={this.props.markerRanges}
             text={this.props.answer}
             correct={this.props.correct}
+            initialCursorLine={this.props.initialCursorLine}
+            initialCursorCharacter={this.props.initialCursorCharacter}
           />
         </div>
       </div>
@@ -38,6 +40,8 @@ function mapStateToProps(state: State) {
     markerRanges: state.text.markers,
     answer: state.text.text,
     correct: state.text.correct,
+    initialCursorLine: state.text.initialCursorLine,
+    initialCursorCharacter: state.text.initialCursorCharacter,
   };
 }
 

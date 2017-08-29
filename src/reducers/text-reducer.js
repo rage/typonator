@@ -7,7 +7,9 @@ export type State = {
   text: string,
   markers: Array<Object>,
   model: string,
-  correct: boolean
+  correct: boolean,
+  initialCursorLine: number,
+  initialCursorCharacter: number,
 }
 
 function findBugs(model: string, answer: string) {
@@ -52,11 +54,22 @@ function isCorrect(model: string, answer: string) {
 }
 
 export default (model: string, template: string) => {
+  const markPos = template.indexOf('// MARK');
+  let initialCursorLine;
+  let initialCursorCharacter;
+  if (markPos !== -1) {
+    const s = template.substring(0, template.indexOf('// MARK'));
+    initialCursorLine = s.split('\n').length - 1;
+    initialCursorCharacter = s.length - (s.lastIndexOf('\n') + 1);
+  }
+
   const initialState = {
-    text: template,
+    text: template.replace('// MARK', ''),
     markers: [],
     model,
     correct: false,
+    initialCursorLine,
+    initialCursorCharacter,
   };
   return createReducer(initialState, {
     [TEXT_CHANGED](state: State, action: TextAction): State {

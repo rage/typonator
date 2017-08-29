@@ -21,7 +21,7 @@
 .answer {
   padding: 0.5rem;
   white-space: pre;
-  border: 0.01rem dotted black;
+  border: 1px solid #333;
   position: relative;
 }
 
@@ -37,6 +37,16 @@
   position: absolute;
   bottom: -10px;
   right: -2px;
+}
+
+.wrongmark:after {
+  content: "x";
+  float: right;
+  font-size: 4rem;
+  color: #B8312F;
+  position: absolute;
+  bottom: -8px;
+  right: 4px;
 }
 
 .paste {

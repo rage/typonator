@@ -4,6 +4,13 @@ import prefixer from 'utils/class-name-prefixer';
 import CodeMirror, { TextMarker } from 'react-codemirror';
 
 class Input extends Component {
+  state: {
+    initialFocusOccured: boolean;
+  }
+
+  state = {
+    initialFocusOccured: false,
+  }
 
   componentDidMount() {
     this.preventPaste();
@@ -22,6 +29,7 @@ class Input extends Component {
   textInput: CodeMirror;
   markers: TextMarker;
   wrapper: HTMLDivElement;
+
 
   addMarkers() {
     const codeDocument = this.textInput.getCodeMirror().getDoc();
@@ -45,20 +53,35 @@ class Input extends Component {
     });
   }
 
+  handleFocus() {
+    if (this.state.initialFocusOccured === true) {
+      return;
+    }
+    this.setState({ initialFocusOccured: true });
+    this.textInput.getCodeMirror().setCursor({ line: this.props.initialCursorLine, ch: this.props.initialCursorCharacter });
+  }
+
   props: {
     correct: boolean,
     text: string,
     onChange: (content: string) => any,
-    markerRanges: Array<Object>
+    markerRanges: Array<Object>,
+    initialCursorLine: number,
+    initialCursorCharacter: number,
   };
 
   render() {
     let clsName = prefixer('answer');
     if (this.props.correct) {
-      clsName = `${clsName} + " " + ${prefixer('checkmark')}`;
+      clsName = `${clsName} ${prefixer('checkmark')}`;
+    } else {
+      clsName = `${clsName} ${prefixer('wrongmark')}`;
     }
     const editor = (
-      <div ref={(input) => { this.wrapper = input; }}>
+      <div
+        onFocus={() => this.handleFocus()}
+        ref={(input) => { this.wrapper = input; }}
+      >
         <CodeMirror
           className={clsName}
           value={this.props.text}
