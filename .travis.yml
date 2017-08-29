@@ -1,0 +1,29 @@
+language: node_js
+node_js: 7.4.0
+cache:
+  yarn: true
+  directories:
+  - node_modules
+branches:
+  only:
+  - master
+install:
+- yarn install
+before_script:
+- git config --global user.name "hnbot"
+- git config --global user.email "nygrenh+hnbot@gmail.com"
+- export COMMIT_MESSAGE=Update:\ $(git log -1 --pretty=%s)
+- git clone -b gh-pages --single-branch https://github.com/materiaalit/typonator-cdn.git
+  dist
+script:
+- yarn build-travis
+after_success:
+- cd dist
+- git checkout HEAD README.md .github
+- git add --all
+- git commit -m "$COMMIT_MESSAGE"
+- git push "https://hnbot:$GITHUB_API_KEY@github.com/materiaalit/typonator-cdn.git"
+  gh-pages:gh-pages 2>&1 | sed "s/$GITHUB_API_KEY/<confidential>/g"
+env:
+  global:
+    secure: bChNj64NowchYnnq3Hj170gvBPXPWGjnMEITm+m8JZNGP7SDbTUPaFrjHfkUcQbAxp6cpQRa9wv4o7A0Rxs6vlqedcZ8qdx2IUY5MoCyiEfljLvFXbBtZbb4neagGTTCEUb7Fz3GPEX3KFNTWI9Wmtrs4F/j3dIz8fX/FiYVPhQqMV+vEJEGDPGNEj98jIXVigNap2G3VxRDqVkGG9A7ZN+6OWF9OZuW4i3fRTVj488EhLAZ4Bn/D7scARqA3mCX8N0Jpkf5g1rI44Iqr0kofu8Dn+HkuM5/c1ftP6XxhCoC/t3HEOjdTXyiouOSLQZvyxFQeiF72yje1UMhccuVlX70C80KximPLPKTNWSW5CyW8XaEDhPlq/ddyDbEv8FUEMLSKiPu7wpq9f5AbRL/GZOyK4EXUI2nd7tdXZP7kc498sk0kk7tnPnh0yiJh7vxe9K5Rwz5rH10QJPnxG0ZZbKsk6P/Vpq9LfPV5Jx3hvCjTGWfYl2qUXYtbOJIMG4mukNqmoFayMVCgjL6paUBWPkC0yduDxx3zBBDlJd+0mVVUftBUx38kFOLvgwouKt1U/S4CwfVo49hsi1mvGS44J8Ehx+S9GMUtbVfzITyzvrkak31yRq1qFY4h54P44LRlWwuansK2sPkXUSYzrMyhQSJX7xnN5ldJ7yp4kNohjE=
