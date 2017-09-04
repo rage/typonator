@@ -15,8 +15,8 @@ try {
 
 window.initTyponator = () => {
   document.querySelectorAll('.typonator-widget').forEach((element) => {
-    const model = element.getElementsByClassName('typonator-model-source')[0].innerHTML.toString().trim();
-    const template = element.getElementsByClassName('typonator-template-source')[0].innerHTML
+    const model = element.getElementsByClassName('typonator-model-source')[0].innerText.toString().trim();
+    const template = element.getElementsByClassName('typonator-template-source')[0].innerText
       .toString().trim();
     const store = createStore(model, template);
     render(
