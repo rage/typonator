@@ -5483,9 +5483,9 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
-redux-action-analytics@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/redux-action-analytics/-/redux-action-analytics-0.0.1.tgz#c8db225d12a9730b123558b2d46c389cf4ec37b8"
+redux-action-analytics@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/redux-action-analytics/-/redux-action-analytics-0.0.2.tgz#fc386c1af396a1fd0234737a2af3ba8a2e4a6760"
   dependencies:
     uuid "^3.1.0"
 
