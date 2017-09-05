@@ -7,7 +7,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 module.exports = {
   watch: isDevelopment,
-  devtool: isDevelopment ? 'eval-source-map' : false,
+  devtool: isDevelopment ? 'source-map' : false,
   entry: {
     app: path.join(__dirname, 'src', 'index.jsx'),
   },
