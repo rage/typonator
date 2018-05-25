@@ -25,12 +25,15 @@ export default function makeStore(model: string, template: string) {
       username: user.username,
     };
   });
+  const middlewares = [thunk.withExtraArgument()];
+  if (window['research-agreement-agreed']) {
+    middlewares.unshift(analytics.getMiddleware());
+  }
   const store = createStore(
     rootReducer(model, template),
     composeEnhancers(
       applyMiddleware(
-        analytics.getMiddleware(),
-        thunk.withExtraArgument(),
+        ...middlewares,
       ),
     ),
   );
